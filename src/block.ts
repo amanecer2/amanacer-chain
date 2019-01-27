@@ -1,5 +1,5 @@
 import {SHA256} from 'crypto-js';
-
+const d = '';
 export class Block {
     constructor(public timestamp: string | number,
                 public lastHash: string,

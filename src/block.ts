@@ -1,7 +1,7 @@
 import {SHA256} from 'crypto-js';
 const d = '';
 export class Block {
-    constructor(public timestamp: string | number,
+    constructor(public timestamp: number | string,
                 public lastHash: string,
                 public hash: string,
                 public data: any) {
@@ -29,7 +29,12 @@ export class Block {
         return new this(now, lastHash, hash, data);
     }
 
-    static hash(timestamp: number, lastHAsh: string, data: any) {
+    static hash(timestamp: number | string, lastHAsh: string, data: any) {
         return SHA256(`${timestamp}${lastHAsh}${data}`).toString();
+    }
+
+    static blockHash(block: Block) {
+      const {hash, lastHash, data,timestamp} = block;
+      return Block.hash(timestamp, lastHash, data);
     }
 }

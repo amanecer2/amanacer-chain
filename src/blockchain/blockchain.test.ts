@@ -37,6 +37,13 @@ describe('Block chain', () => {
 
     expect(isValid).toBe(false);
   });
+  it('valid isValid', () => {
+    blockchain.addBlock('shahar');
+
+    const isValid = blockchain2.isValidChain(blockchain2.chain);
+
+    expect(isValid).toBe(true);
+  });
 
   it('invalidated corrupt chain', () => {
     blockchain2.addBlock('shahar');
@@ -47,4 +54,28 @@ describe('Block chain', () => {
     expect(isValid).toBe(false);
   });
 
+  it('replace chain with valid chain', () => {
+    const b = blockchain2.addBlock('new one!');
+    expect(blockchain2.chain[1]).toEqual(b);
+
+
+    blockchain.replaceChain(blockchain2.chain);
+
+    expect(blockchain.chain).toEqual(blockchain2.chain)
+  });
+
+  it('not replace chain with invalid chain', () => {
+    blockchain2.addBlock('new one!');
+    blockchain2.chain[1].data = 'not good one'
+    blockchain.replaceChain(blockchain2.chain);
+
+    expect(blockchain.chain).not.toEqual(blockchain2.chain)
+  });
+
+  it('not replace chain with same or lower length chain', () => {
+    blockchain.addBlock('new one!');
+    const res = blockchain.replaceChain(blockchain2.chain);
+
+    expect(res).toBe(false)
+  })
 });

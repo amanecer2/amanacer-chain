@@ -25,7 +25,14 @@ export class Blockchain {
         const block = chain[i];
         const lastBlock = chain[i - 1];
 
-        if (block.hash !== lastBlock.lastHash || block.hash !== Block.blockHash(block)) { return false; }
+        if (block.lastHash !== lastBlock.hash) { console.log('isValidChain -> block.hash !== lastBlock.lastHash '); return false; }
+        if (block.hash !== Block.blockHash(block)) {
+
+            console.log('isValidChain -> block.hash !== Block.blockHash(block)');
+            console.log('block.hash', block.hash)
+            console.log('Block.blockHash(block)', Block.blockHash(block))
+            return false;
+        }
      }
 
      return true;
@@ -34,14 +41,15 @@ export class Blockchain {
     replaceChain(newChain: Block[]) {
       if (newChain.length <= this.chain.length) {
         console.log('the leangth is lower than the current one');
-        return;
+        return false;
       }
       if (!this.isValidChain(newChain)) {
         console.log('the received chain is invalid');
-        return;
+        return false;
       }
 
       console.log('replacing the old chain with the new one chain');
       this.chain = newChain;
+      return true
     }
 }

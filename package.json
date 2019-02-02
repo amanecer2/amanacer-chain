@@ -7,7 +7,9 @@
     "test": "jest --watchAll",
     "tsc-watch": "tsc-watch server.ts --outDir ./dist --onSuccess node ./dist/server.ts",
     "watch": "nodemon --exec ts-node -- ./src/index.ts",
-    "start": "tsc && node ./dist/app/index.js"
+    "start": "tsc && node ./dist/app/index.js",
+    "start-test": "tsc && node ./dist/app/blockchain-test.js",
+    "start2": "HTTP_PORT=3002  P2P_PORT=5002 PEERS=ws://localhost:5001 tsc && node ./dist/app/index.js"
   },
   "keywords": [],
   "author": "",

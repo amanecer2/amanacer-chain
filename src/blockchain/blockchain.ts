@@ -19,7 +19,12 @@ export class Blockchain {
     }
 
     isValidChain(chain: Block[]) {
-      if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {return false}
+      if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
+          console.log('the stringify is not good');
+          console.log('JSON.stringify(chain[0])', JSON.stringify(chain[0]))
+          console.log('JSON.stringify(Block.genesis())', JSON.stringify(Block.genesis()))
+          return false
+      }
 
      for (let i = 1; i < chain.length; i++) {
         const block = chain[i];
